@@ -6,6 +6,8 @@ const dotenv = require('dotenv')
 const path = require('path');
 
 dotenv.config()
+const indexRouter = require('./routes')
+const userRouter = require('./routes/user')
 const app = express();
 app.set('port', process.env.PORT || 3000);
 
@@ -26,22 +28,26 @@ app.use(session({
   },
   name:'session-cookie',
 }));
-console.log(process.env)
 
+app.use('/', indexRouter);
+app.use('/user',userRouter)
 
-
-
-
-app.use((req,res, next)=> {
-  console.log('모든 요청에 다 실행됩니다. ');
-  next();
+app.use((req,res,next)=> {
+  res.status(404).send('Not Found')
 })
-app.get('/', (req, res, next) => {
-  console.log('GET / 요청에서만 실행됩니다.');
-  next();
-}, (req, res) => {
-  throw new Error('에러는 에러처리 미들웨어로 갑니다. ')
-});
+
+
+
+// app.use((req,res, next)=> {
+//   console.log('모든 요청에 다 실행됩니다. ');
+//   next();
+// })
+// app.get('/', (req, res, next) => {
+//   console.log('GET / 요청에서만 실행됩니다.');
+//   next();
+// }, (req, res) => {
+//   throw new Error('에러는 에러처리 미들웨어로 갑니다. ')
+// });
 
 
 
