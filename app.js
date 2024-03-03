@@ -56,7 +56,7 @@ app.get("/upload", (req, res) => {
   res.sendFile(path.join(__dirname, "multipart.html"));
 });
 
-app.post("/upload", upload.array("claim"), (req, res) => {
+app.post("/upload", upload.array('claim', 4), (req, res) => {
   console.log(req.files, req.body);
   res.send("ok");
 });
