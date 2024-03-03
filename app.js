@@ -56,10 +56,12 @@ app.get("/upload", (req, res) => {
   res.sendFile(path.join(__dirname, "multipart.html"));
 });
 
-app.post("/upload", upload.array('claim', 4), (req, res) => {
-  console.log(req.files, req.body);
+app.post("/upload", upload.single('claim'), (req, res) => {
+  console.log(req.file, req.body);
   res.send("ok");
 });
+// single, req.file, 
+// array, req.files, multiple
 
 app.use("/", indexRouter);
 app.use("/user", userRouter);
